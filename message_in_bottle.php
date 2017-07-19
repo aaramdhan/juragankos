@@ -14,6 +14,7 @@ $isi_pesan = "
 		<tr>
 			<td><b>Password Baru</b><td>: <b>".$passwordbaru."</b></td></td>
 		</tr>
+		<br>Setelah anda berhasil melakukan Login disarankan langsung ganti password<br><br>
 	</table>
 	<br><br>
 	<center>

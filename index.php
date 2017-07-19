@@ -22,6 +22,9 @@
 	        if($_GET['pesan'] == "daftar"){
 	        	echo "<script type='text/javascript'>alert('Selamat Anda telah bergabung bersama Kami Silahkan Lakukan Login ')</script>";
 	        }
+	        if($_GET['pesan'] == "berhasil"){
+                echo "<script type='text/javascript'>alert('Login Berhasil! ')</script>";
+            }
 	    }
 	?>    
 
@@ -89,18 +92,11 @@
 	                  		<span class="glyphicon glyphicon-user"></span>
                     	</a>
                			<ul class="dropdown-menu">
-                			<li>
-                    	    	<a href="logout.php">
-                    			<i class="fa fa-sign-out fa-fw"></i>
-                        		Logout
-                        		</a>
-                   			</li>
-                    		<li>
-                        		<a href="">
-                        		<i class="fa fa-pencil fa-fw"></i>
-                        		???
-                        		</a>
-                    		</li>
+                    		<li><a href="#">Pengaturanku <span class="glyphicon glyphicon-cog pull-right"></span></a></li>
+           					<li class="divider"></li>
+				            <li><a href="#">Kosanku <span class="glyphicon glyphicon-heart pull-right"></span></a></li>
+				            <li class="divider"></li>
+				            <li><a href="logout.php">Logout<span class="glyphicon glyphicon-log-out pull-right"></span></a></li>
                 		</ul>
                 	</li>
                 </ul>	
@@ -140,6 +136,12 @@
 					include "login.php";
 				}
 
+				//Lupa Password
+				if((isset($_GET['menu'])) && ($_GET['menu']=="lupa_password") && (($_GET['action']=="tampil")))
+				{
+					include "lupa_password.php";
+				}
+
 				//dashboard
 				if((isset($_GET['menu'])) && ($_GET['menu']=="dashboard") && (($_GET['action']=="tampil")))
 				{
@@ -176,6 +178,7 @@
 				{
 					include "update_profil.php";
 				}
+
 
 	?>
 	<!--/-->

@@ -22,7 +22,7 @@ ob_start();
     $yy=str_shuffle($pass);
     $passwordbaru=substr($yy, $xx, $panjang);
 
-
+    //form pengisian E-Mail
     $mail->setFrom('juragan.kosan2017@gmail.com', 'Admin Juragan Kosan');
     $mail->addReplyTo('juragan.kosan2017@gmail.com', 'Admin Juragan Kosan');
     $mail->addAddress($real_email);
@@ -32,15 +32,15 @@ ob_start();
     $mail->AltBody = 'This is a plain-text message body';
 
     if (!$mail->send()) {
-        header("location: lupa_password.php?pesan=email_tidak_terkirim");
+        header("location: index.php?menu=lupa_password&action=tampil&pesan=email_tidak_terkirim");
     }else{
         $password_ganti = $link->real_escape_string(md5($passwordbaru));
         $query2 = mysqli_query($link, "UPDATE user_member SET member_password = '$password_ganti' WHERE member_email = '$email_cr'");
         if ($query2){
-          header("Location: lupa_password.php?pesan=password_terkirim");
+          header("Location: index.php?menu=lupa_password&action=tampil&pesan=password_terkirim");
         }
     }
   }else{
-     header("location: lupa_password.php?pesan=email_tidak_terdaftar");
+     header("location: index.php?menu=lupa_password&action=tampil&pesan=email_tidak_terdaftar");
   }
  ?>
