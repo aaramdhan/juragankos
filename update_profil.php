@@ -25,8 +25,7 @@
                 <label for="Username">Username</label>
                     <input type="text" name="member_username"  class="form-control" value="<?php echo $update['member_username']; ?>"/>
               </div>    
-          </div> 
-
+          </div>
           <div class="row">
             <div class="form-group col-sm-2">
               <label for="Tempat Lahir">Tempat Lahir</label>
