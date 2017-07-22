@@ -22,6 +22,12 @@
 	        if($_GET['pesan'] == "daftar"){
 	        	echo "<script type='text/javascript'>alert('Selamat Anda telah bergabung bersama Kami Silahkan Lakukan Login ')</script>";
 	        }
+            if($_GET['pesan'] == "berhasil"){
+                echo "<script type='text/javascript'>alert('Login Berhasil! ')</script>";
+            }
+            if($_GET['pesan'] == "login"){
+                echo "<script type='text/javascript'>alert('Login Terlebih Dahulu! ')</script>";
+            }
 	    }
 	?>    
 
@@ -89,18 +95,11 @@
 	                  		<span class="glyphicon glyphicon-user"></span>
                     	</a>
                			<ul class="dropdown-menu">
-                			<li>
-                    	    	<a href="logout.php">
-                    			<i class="fa fa-sign-out fa-fw"></i>
-                        		Logout
-                        		</a>
-                   			</li>
-                    		<li>
-                        		<a href="">
-                        		<i class="fa fa-pencil fa-fw"></i>
-                        		???
-                        		</a>
-                    		</li>
+                    		<li><a href="#"><span class="glyphicon glyphicon-cog"></span> Pengaturanku</a></li>
+           					<li class="divider"></li>
+				            <li><a href="#"><span class="glyphicon glyphicon-heart"></span> Kosanku</a></li>
+				            <li class="divider"></li>
+				            <li><a href="logout.php"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
                 		</ul>
                 	</li>
                 </ul>	
@@ -121,7 +120,7 @@
 	<!--Content-->
 	<?php
 	}
-				//----------- TAMPILKAN ------------//
+                //----------- TAMPILKAN ------------//
 				//index
 				if((empty($_GET['menu'])))
 				{
@@ -140,6 +139,12 @@
 					include "login.php";
 				}
 
+				//Lupa Password
+				if((isset($_GET['menu'])) && ($_GET['menu']=="lupa_password") && (($_GET['action']=="tampil")))
+				{
+					include "lupa_password.php";
+				}
+
 				//dashboard
 				if((isset($_GET['menu'])) && ($_GET['menu']=="dashboard") && (($_GET['action']=="tampil")))
 				{
@@ -150,12 +155,6 @@
 				if((isset($_GET['menu'])) && ($_GET['menu']=="kosan") && (($_GET['action']=="tampil")))
 				{
 					include "kosan.php";
-				}
-
-				//Data Pemilik
-				if((isset($_GET['menu'])) && ($_GET['menu']=="pemilik") && (($_GET['action']=="tampil")))
-				{
-					include "pemilik.php";
 				}
 
 				//Detail Kamar
@@ -170,13 +169,26 @@
 					include "listkamar.php";
 				}
 
-				//----------- UPDATE ------------//
-				//update profil
-				if((isset($_GET['menu'])) && ($_GET['menu']=="pemilik") && (($_GET['action']=="update")) && (($_GET['id'])) )
-				{
-					include "update_profil.php";
-				}
+				//----------- Akses Khusus Pemilik ------------//
+                //Data Pemilik
+                if((isset($_GET['menu'])) && ($_GET['menu']=="pemilik") && (($_GET['action']=="tampil"))) {
+                    //validasi
+                    if (!empty($_SESSION['member_username'])) {
+                        include "pemilik.php";
+                    } else {
+                        header("location:index.php?pesan=login");
+                    }
+                }
 
+                 //update profil
+                 if((isset($_GET['menu'])) && ($_GET['menu']=="pemilik") && (($_GET['action']=="update")) && (($_GET['id']))) {
+                    //validasi
+                    if (!empty($_SESSION['member_username'])) {
+                        include "update_profil.php";
+                    } else {
+                        header("location:index.php?pesan=login");
+                    }
+                 }
 	?>
 	<!--/-->
 

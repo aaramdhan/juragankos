@@ -1,9 +1,4 @@
 <?php
-	include "header.php";
-?>
-
-
-<?php
         $pesan = isset($_GET['pesan']) ? ($_GET['pesan']): '';
         $out = '';
         switch ($pesan) {
@@ -11,7 +6,7 @@
               $out = '
                 <center>
                 <p style="color:#a00;padding:5px;border-radius:3px;">
-                  <i class="glyphicon glyphicon-remove"></i>&nbsp; <b>ERROR :</b> email tidak terdaftar.
+                  <i class="glyphicon glyphicon-remove"></i>&nbsp; <b>ERROR :</b> email tidak terdaftar. 
                 </p>
                 </center>
               ';
@@ -61,13 +56,7 @@
                         <button type="submit" class="btn btn-primary">Kirim</button>
                     </div>
                     <hr>
-                    <h5><a href="login.php"> Login</a></h5>
+                    <h5><a href="index.php?menu=masuk&action=tampil"> Login</a></h5>
                 </div>
             </form>
         </div>
-
-
-
-<?php
-	include "footer.php";
-?>

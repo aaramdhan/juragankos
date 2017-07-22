@@ -32,7 +32,7 @@
                     <button type="submit" class="btn btn-primary">Login</button>
                 </div>
                 <hr>
-                <h5><a href="lupa_password.php"> Lupa Password...?</a></h5>
+                <h5><a href="index.php?menu=lupa_password&action=tampil"> Lupa Password...?</a></h5>
             </div>
         </form>
     </div>
