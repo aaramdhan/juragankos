@@ -1,6 +1,7 @@
+
 <div class="container">
-<div class="col-lg-6">
-        <h3>Data Diri</h3>
+<div class="col-sm-3">
+        <h3>Data Pemilik</h3>
     </div>
     <div class="col-lg-10 col-sm-10">
     <hr>
@@ -12,8 +13,15 @@
                     }
                 }
 
-                //menampilkan Data Pemilik      
-                $query  = "SELECT * FROM user_member where member_id = '$member_id' ";
+                //menampilkan Data Pemilik            
+                if (!empty($_SESSION['member_username'])){
+                    $query  = "SELECT * FROM user_member WHERE member_id='$member_id'";
+                }else
+                if(!empty($_SESSION['admin_username'])) {
+                    $member_id  = mysqli_real_escape_string($link,$_GET['id']);    
+                    $query      = "SELECT * FROM user_member WHERE member_id='$member_id' ";
+                }
+
                 $res    = mysqli_query($link, $query);
 
                 $no=0;
@@ -79,11 +87,30 @@
                                     </table> 
                                 </div>
                                 <div >
-                                    <button  style="margin-bottom:10px;" class="btn btn-info col-md-12">
-                                        <a href="index.php?menu=pemilik&action=update&id=<?php echo $data_pemilik['member_id'];?>">
-                                        <span class="glyphicon glyphicon-edit"></span>  Update Data Diri 
-                                        </a>
-                                    </button>
+                                <?php
+                                    if(!empty($_SESSION['admin_username'])) {
+                                ?>
+                                    <a href="index.php?menu=pemilik&action=update&id=<?php echo $data_pemilik['member_id'];?>" class="btn btn-info col-md-12" >
+                                        <span class="glyphicon glyphicon-edit"></span>  Update Data Member 
+                                    </a>
+                                    <hr><br>
+                                    <a href="index.php?menu=kosan&action=tampil&id=<?php echo $data_pemilik['member_id'];?>" class="btn btn-info col-md-12"  >
+                                        <span class="glyphicon glyphicon-list"></span> List Kostan
+                                    </a> 
+                                    <hr><br>
+                                    <a href="index.php?menu=pemilik&action=delete&id=<?php echo $data_pemilik['member_id'];?>" class="btn btn-info col-md-12" style="background-color: red" onclick="return confirm('Apakah anda yakin ingin menghapus ini ?')">
+                                        <span class="glyphicon glyphicon-remove-sign"></span><b> Hapus Pemilik </b>
+                                    </a>
+                                <?php
+                                }else{
+                                ?>
+                                    <a href="index.php?menu=pemilik&action=update&id=<?php echo $data_pemilik['member_id'];?>" class="btn btn-info col-md-12" >
+                                        <span class="glyphicon glyphicon-edit"></span>  Update Data Diri
+                                    </a>
+                                <?php
+                                }
+                                ?>
+
                                 </div>
                         </div>
                         

@@ -1,12 +1,38 @@
 	<div class="container">
-	<div class="col-lg-6">
-        <h3>Daftar Kostan</h3>
+	<div class="col-sm-3">
+        <h3>Daftar Kostan        
+       		<?php
+            if (!empty($_SESSION['member_username'])){
+        	?>
+        		<a href="index.php?menu=kosan&action=tambah" class="btn btn-primary btn-product">
+        		<span class="glyphicon glyphicon-plus-sign"></span><b> Tambah Data </b></a>
+        	<?php
+            }
+        	?>
+		</h3>
     </div>
 		<div class="col-md-10">
 		<hr>
 			<?php
-				//menampilkan kostan			
-				$query 	= "SELECT * FROM kostan WHERE pemilik='$member_id' ";
+                //notice ketika update profil
+                if(isset($_GET['pesan'])){
+                    if($_GET['pesan'] == "tambah"){
+                        echo "<script type='text/javascript'>alert('Kostan Berhasil Ditambahkan! ')</script>";
+                    }
+                    if($_GET['pesan'] == "delete"){
+                        echo "<script type='text/javascript'>alert('Kostan Berhasil Dihapus! ')</script>";
+                    }
+                }
+
+				//menampilkan kostan
+                if (!empty($_SESSION['member_username'])){
+	                $query 	= "SELECT * FROM kostan WHERE pemilik='$member_id' ";
+                }else
+                if(!empty($_SESSION['admin_username'])) {
+                    $member_id  = mysqli_real_escape_string($link,$_GET['id']);    
+                    $query      = "SELECT * FROM kostan WHERE pemilik='$member_id' ";
+                }
+				
 				$res 	= mysqli_query($link, $query);
 				
 				$no=0;
@@ -36,25 +62,9 @@
 			<?php
 			}
 			?>
-			<div class="col-sm-4 col-md-4">
-				<div class="thumbnail" >
-					<h4 class="text-center"><span class="label label-info">Kota</span></h4>
-					<img src="http://placehold.it/650x450&text=Galaxy S5" class="img-responsive">
-					<div class="caption">
-						<div class="row">
-							<div class="col-md-6 col-xs-6 price">
-								<h3><label>Harga</label></h3>
-							</div>
-						</div>
-						<p>Alamat</p>
-						<div class="row">
-							<div class="col-md-12">
-								<a class="btn btn-primary btn-product"><span class="glyphicon glyphicon-plus-sign"></span> Tambah Data </a> 
-							</div>
-						</div>
-						<p> </p>
-					</div>
-				</div>
+			<p> </p>
+			</div>
+			</div>
 			</div>
 		</div>
     </div><br><br>

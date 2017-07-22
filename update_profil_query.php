@@ -23,7 +23,13 @@
 						member_email 		= '$member_email'
 						WHERE member_id 	= '$member_id'");
 	mysqli_query($link,$update);
-	$_SESSION['member_username']=$member_username;
-	header('location:index.php?menu=pemilik&action=tampil&pesan=update');
+
+    if(!empty($_SESSION['admin_username'])) {
+    	header('location:index.php?menu=pemilik&action=tampil&id='.$member_id.'&pesan=update');    
+    }else{
+		$_SESSION['member_username']=$member_username;
+		header('location:index.php?menu=pemilik&action=tampil&pesan=update');
+	}
+
 
 ?>
